@@ -39,8 +39,38 @@ services:
     networks:
       - sanisidro-net
 
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - sanisidro-net
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: sanisidro-metabase
+    ports:
+      - "3001:3000" # Entrarás por el puerto 3001
+    environment:
+      MB_DB_TYPE: mysql
+      MB_DB_DBNAME: sanisidro_db
+      MB_DB_PORT: 3306
+      MB_DB_USER: root
+      MB_DB_PASS: rootpassword123
+      MB_DB_HOST: mysqldb # Nombre del servicio de tu BD en este mismo archivo
+    depends_on:
+      - mysqldb
+    networks:
+      - sanisidro-net
+
 volumes:
   db_data:
+  portainer_data:
 
 networks:
   sanisidro-net:
