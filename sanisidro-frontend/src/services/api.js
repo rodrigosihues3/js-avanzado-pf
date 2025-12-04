@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'https://backend-production-cbbe.up.railway.app/api';
+// const API_URL = 'https://backend-production-cbbe.up.railway.app/api';
 // Para pruebas locales
 // const API_URL = 'http://localhost:8080/api';
+const API_URL = 'http://104.197.34.63:8080/api'
 
 // Configuración de axios
 const api = axios.create({

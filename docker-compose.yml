@@ -1,0 +1,46 @@
+services:
+  # Base de Datos
+  mysqldb:
+    image: mysql:8.0
+    container_name: sanisidro-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: sanisidro_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - sanisidro-net
+
+  # Backend (Spring Boot)
+  backend:
+    build: ./sanisidro-backend
+    container_name: sanisidro-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/sanisidro_db?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword123
+    networks:
+      - sanisidro-net
+
+  # Frontend (React + Nginx)
+  frontend:
+    build: ./sanisidro-frontend
+    container_name: sanisidro-frontend
+    ports:
+      - "80:80" # Expone el frontend en el puerto 80 (HTTP estándar)
+    depends_on:
+      - backend
+    networks:
+      - sanisidro-net
+
+volumes:
+  db_data:
+
+networks:
+  sanisidro-net:
