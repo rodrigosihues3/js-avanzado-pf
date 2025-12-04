@@ -1,0 +1,120 @@
+/* --- DISEÑO DE CARTA --- */
+
+.carta-page {
+    padding-top: 50px;
+    animation: fadeIn 1s ease-out; /* Reutilizamos la animación global */
+}
+
+.carta-hero {
+    padding: 60px 5%;
+    text-align: center;
+    background-color: var(--color-secondary);
+    margin-bottom: 40px;
+}
+
+.carta-title {
+    font-size: 3em;
+    color: var(--color-primary);
+}
+
+.carta-subtitle {
+    font-size: 1.2em;
+    color: var(--color-light-text);
+}
+
+/* CONTENEDOR PRINCIPAL DEL MENÚ */
+.carta-menu-container {
+    padding: 0 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.menu-categoria {
+    margin-bottom: 50px;
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: 20px;
+}
+
+.categoria-title {
+    font-size: 2.2em;
+    color: var(--color-accent-gold);
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 1px dashed var(--color-secondary);
+    padding-bottom: 10px;
+}
+
+/* CUADRÍCULA DE PLATOS */
+.platos-grid {
+    display: grid;
+    /* 1 columna en móvil, 2 columnas en escritorio */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+    gap: 30px;
+}
+
+.plato-card {
+    display: flex;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.plato-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.plato-image {
+    width: 120px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.plato-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.plato-nombre {
+    font-size: 1.3em;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.plato-descripcion {
+    font-size: 0.95em;
+    color: var(--color-light-text);
+    margin-bottom: 10px;
+}
+
+.plato-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.plato-precio {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.add-to-cart-btn {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #a00; /* Un rojo más oscuro */
+}

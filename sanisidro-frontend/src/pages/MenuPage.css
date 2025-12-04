@@ -1,0 +1,512 @@
+.menu-page {
+  min-height: 100vh;
+  padding-top: 80px;
+  background: #f8f9fa;
+}
+
+.menu-container {
+  padding: 60px 20px;
+}
+
+.menu-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.category-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+  margin: 40px 0 30px 0;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.category-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  border-radius: 2px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-card {
+  display: flex;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  min-height: 220px;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-left {
+  flex: 1;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 12px 0;
+  line-height: 1.3;
+}
+
+.card-description {
+  color: #6c757d;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 15px 0;
+  flex-grow: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.card-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #27ae60;
+  white-space: nowrap;
+}
+
+.add-to-cart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: fit-content;
+}
+
+.add-to-cart-btn:hover {
+  background: linear-gradient(135deg, #357abd 0%, #2a5f8f 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+}
+
+.add-to-cart-btn i {
+  font-size: 1rem;
+}
+
+.card-right {
+  width: 240px;
+  flex-shrink: 0;
+  overflow: hidden;
+  align-self: stretch;
+}
+
+.card-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.menu-card:hover .card-right img {
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+    max-width: 700px;
+  }
+  
+  .menu-card {
+    min-height: 200px;
+  }
+  
+  .card-right {
+    width: 220px;
+  }
+}
+
+/* Mobile Landscape y Tablets pequeñas */
+@media (max-width: 768px) {
+  .menu-page {
+    padding-top: 70px;
+  }
+  
+  .menu-container {
+    padding: 40px 15px;
+  }
+  
+  .menu-title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .menu-grid {
+    gap: 20px;
+  }
+  
+  .menu-card {
+    min-height: auto;
+  }
+  
+  .card-left {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  
+  .card-description {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+  
+  .card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .card-price {
+    font-size: 1.5rem;
+  }
+  
+  .card-right {
+    width: 180px;
+  }
+  
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  .menu-container {
+    padding: 30px 10px;
+  }
+  
+  .menu-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+  
+  .menu-grid {
+    gap: 15px;
+  }
+  
+  .menu-card {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .card-right {
+    width: 100%;
+    height: 200px;
+    order: -1;
+  }
+  
+  .card-left {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+  
+  .card-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  
+  .card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .card-price {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Mobile muy pequeño */
+@media (max-width: 360px) {
+  .menu-title {
+    font-size: 1.5rem;
+  }
+  
+  .card-left {
+    padding: 15px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .card-description {
+    font-size: 0.85rem;
+  }
+  
+  .card-right {
+    height: 180px;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-card {
+  animation: fadeIn 0.5s ease-out;
+}
+
+
+/* Extras Section */
+.extras-section {
+  margin-top: 80px;
+  padding-top: 60px;
+  border-top: 2px solid #e9ecef;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.extras-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.extra-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.extra-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+}
+
+.extra-image {
+  width: 100%;
+  height: 140px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.extra-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.extra-info {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.extra-info h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.extra-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #27ae60;
+}
+
+.extra-add-btn {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  color: white;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.extra-add-btn:hover {
+  background: linear-gradient(135deg, #357abd 0%, #2a5f8f 100%);
+}
+
+@media (max-width: 768px) {
+  .extras-section {
+    margin-top: 60px;
+    padding-top: 40px;
+  }
+  
+  .section-title {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+  
+  .extras-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .extras-grid {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+  }
+}
+
+/* Menu Section */
+.menu-section {
+  margin-bottom: 60px;
+}
+
+.menu-section .section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.menu-section .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  border-radius: 2px;
+}
+
+/* No Products Message */
+.no-products {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6c757d;
+}
+
+.no-products i {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.no-products p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .menu-section {
+    margin-bottom: 40px;
+  }
+
+  .menu-section .section-title {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+
+  .no-products {
+    padding: 40px 20px;
+  }
+
+  .no-products i {
+    font-size: 3rem;
+  }
+
+  .no-products p {
+    font-size: 1rem;
+  }
+}

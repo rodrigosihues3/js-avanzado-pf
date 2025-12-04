@@ -1,0 +1,80 @@
+/* --- LOGIN ADMIN STYLES --- */
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ocupa toda la altura de la vista */
+    background-color: var(--color-secondary); /* Fondo gris suave */
+    padding: 20px;
+    padding-top: 80px; /* Espacio para el Header */
+}
+
+.login-box {
+    background: var(--color-background); /* Fondo blanco para la caja */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra elegante */
+    width: 100%;
+    max-width: 400px; /* Ancho máximo para el formulario */
+    text-align: center;
+}
+
+.login-title {
+    font-size: 1.8em;
+    color: var(--color-primary);
+    margin-bottom: 25px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.login-input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+.login-button {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #a00; /* Un rojo más oscuro al pasar el ratón */
+}
+
+.login-error {
+    color: red;
+    margin-bottom: 15px;
+    font-weight: 500;
+}

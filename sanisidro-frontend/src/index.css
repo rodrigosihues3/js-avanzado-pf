@@ -1,0 +1,48 @@
+/* PALETA DE COLORES */
+:root {
+  --color-primary: #8b0000; /* Burdeos Oscuro (Acento Elegante) */
+  --color-secondary: #f4f4f4; /* Fondo Gris Muy Claro */
+  --color-background: #ffffff; /* Blanco Puro */
+  --color-text: #333333; /* Gris Oscuro para Textos */
+  --color-light-text: #666666; /* Gris para Subtítulos */
+  --color-accent-gold: #b8860b; /* Toque dorado */
+}
+
+/* RESET Y ESTILOS GLOBALES */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Georgia', 'Times New Roman', Times, serif; /* Fuente clásica y legible */
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  min-height: 100vh;
+}
+
+/* ENCABEZADOS Y TÍTULOS */
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif; /* Fuente elegante y con estilo */
+  color: var(--color-primary);
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+/* ENLACES (Para Header y Footer) */
+a {
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+/* CLASE PRINCIPAL DE CONTENIDO */
+.content {
+  padding-top: 80px; /* Deja espacio para el Header fijo (lo haremos en App.css) */
+}

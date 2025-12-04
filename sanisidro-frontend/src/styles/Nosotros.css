@@ -1,0 +1,40 @@
+/* --- ANIMACIONES Y EFECTOS --- */
+
+/* Keyframes para una aparición sutil */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aplica la animación al contenido principal */
+.nosotros-page {
+    /* ... (Estilos previos) ... */
+    animation: fadeIn 1s ease-out; /* Duración de 1 segundo, animación suave */
+}
+
+/* Estilo para la imagen del Chef/Ubicación */
+.nosotros-image-container {
+    padding: 0 5%;
+    margin-bottom: 40px;
+}
+
+.nosotros-chef-image {
+    width: 100%;
+    max-width: 800px; /* Limita el ancho de la imagen */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px; /* Bordes redondeados para un look moderno */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+    transition: transform 0.5s ease;
+}
+
+.nosotros-chef-image:hover {
+    transform: scale(1.02); /* Pequeña animación al pasar el ratón */
+}

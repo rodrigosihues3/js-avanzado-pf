@@ -1,0 +1,245 @@
+.migration-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+}
+
+.migration-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.migration-container h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 2.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card h3, .stat-card h4 {
+  margin: 0 0 15px 0;
+  font-size: 1.2rem;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.stat-card span {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.stat-card.success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.migrate-btn, .verify-btn {
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.migrate-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.migrate-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+}
+
+.migrate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.verify-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.verify-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+}
+
+.verification-results, .migration-results {
+  margin: 30px 0;
+  padding: 30px;
+  background: #f8f9fa;
+  border-radius: 15px;
+}
+
+.verification-results h3, .migration-results h3 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.results-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.result-item span:first-child {
+  font-weight: bold;
+  color: #333;
+}
+
+.result-item .success {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.result-item .error {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.logs-container {
+  margin: 30px 0;
+  padding: 20px;
+  background: #1e1e1e;
+  border-radius: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.logs-container h3 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.logs {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.log-entry {
+  padding: 8px 12px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  display: flex;
+  gap: 15px;
+}
+
+.log-entry.info {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e0e0e0;
+}
+
+.log-entry.success {
+  background: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+}
+
+.log-entry.error {
+  background: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+}
+
+.log-time {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.warning-box {
+  margin-top: 40px;
+  padding: 25px;
+  background: #fff3cd;
+  border-left: 5px solid #ffc107;
+  border-radius: 10px;
+}
+
+.warning-box h4 {
+  color: #856404;
+  margin-bottom: 15px;
+}
+
+.warning-box ul {
+  color: #856404;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.warning-box li {
+  margin-bottom: 8px;
+}
+
+/* Scrollbar personalizado para logs */
+.logs-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.logs-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.logs-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.logs-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
