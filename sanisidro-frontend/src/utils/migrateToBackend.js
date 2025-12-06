@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://backend-production-cbbe.up.railway.app/api';
+const API_URL = 'http://104.197.34.63:8080/api';
 
 // Función principal de migración
 export const migrateLocalStorageToBackend = async () => {
