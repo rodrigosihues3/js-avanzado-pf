@@ -1,0 +1,27 @@
+# --- Maven / Java ---
+target/
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# --- IDEs (VS Code, IntelliJ, Eclipse) ---
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# --- OS Junk ---
+.DS_Store
+Thumbs.db
+
+# --- Node / Frontend ---
+node_modules/
+**/node_modules/
+build/
+dist/
+.env
