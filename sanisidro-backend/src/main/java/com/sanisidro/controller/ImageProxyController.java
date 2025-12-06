@@ -8,7 +8,7 @@ import java.util.Base64;
 
 @RestController
 @RequestMapping("/api/image-proxy")
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class ImageProxyController {
 
     @GetMapping
