@@ -21,6 +21,7 @@ import AdminReservations from './pages/AdminReservations';
 import AdminPromotions from './pages/AdminPromotions';
 import MigrationPage from './pages/MigrationPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import ReportsPage from './pages/ReportsPage';
 import './App.css';
 
 function App() {
@@ -74,6 +75,11 @@ function App() {
               <Route path="/admin/migration" element={
                 <ProtectedRoute requireAdmin={true}>
                   <MigrationPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/reports" element={
+                <ProtectedRoute> {/* Si usas protección de rutas */}
+                  <ReportsPage />
                 </ProtectedRoute>
               } />
             </Routes>

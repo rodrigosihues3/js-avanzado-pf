@@ -40,19 +40,19 @@ const AdminDashboard = () => {
     try {
       const pedidosResponse = await pedidosAPI.obtenerTodos();
       const orders = pedidosResponse.data || [];
-      
+
       const productosResponse = await productosAPI.obtenerTodos();
       const products = productosResponse.data || [];
-      
+
       const usuariosResponse = await usuariosAPI.obtenerTodos();
       const users = usuariosResponse.data || [];
-      
+
       const reservasResponse = await reservasAPI.obtenerTodas();
       const reservations = reservasResponse.data || [];
-      
+
       const today = new Date().toISOString().split('T')[0];
       const reservasHoy = reservations.filter(r => {
-        const reservaFecha = Array.isArray(r.fecha) 
+        const reservaFecha = Array.isArray(r.fecha)
           ? `${r.fecha[0]}-${String(r.fecha[1]).padStart(2, '0')}-${String(r.fecha[2]).padStart(2, '0')}`
           : r.fecha;
         return reservaFecha === today;
@@ -162,6 +162,12 @@ const AdminDashboard = () => {
         <div className="actions-section">
           <h3>Acciones Rapidas</h3>
           <div className="actions-grid">
+            <button className="action-btn" onClick={() => handleNavigate('/admin/reports')}>
+              <div className="action-icon-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <i className="fas fa-chart-line" style={{ fontSize: '2rem' }}></i>
+              </div>
+              <span className="action-text">Reportes Gerenciales</span>
+            </button>
             <button className="action-btn" onClick={() => handleNavigate('/admin/orders')}>
               <div className="action-icon-wrapper">
                 <img src="/images/admin/pedidos.png" alt="Pedidos" className="action-icon-img" />
