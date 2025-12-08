@@ -74,7 +74,7 @@ const AdminDashboard = () => {
     if (window.confirm('Estas seguro de que deseas cerrar sesion?')) {
       localStorage.removeItem('adminToken');
       localStorage.removeItem('adminData');
-      navigate('/admin/login');
+      navigate('/');
     }
   };
 
