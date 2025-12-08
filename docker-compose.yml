@@ -3,9 +3,11 @@ services:
   mysqldb:
     image: mysql:8.0
     container_name: sanisidro-db
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword123
       MYSQL_DATABASE: sanisidro_db
+      TZ: America/Lima
     ports:
       - "3306:3306"
     volumes:
@@ -22,9 +24,11 @@ services:
     depends_on:
       - mysqldb
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/sanisidro_db?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/sanisidro_db?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=America/Lima
+      # SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/sanisidro_db?useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: rootpassword123
+      TZ: America/Lima
     networks:
       - sanisidro-net
 
@@ -63,6 +67,7 @@ services:
       MB_DB_USER: root
       MB_DB_PASS: rootpassword123
       MB_DB_HOST: mysqldb # Nombre del servicio de tu BD en este mismo archivo
+      TZ: America/Lima
     depends_on:
       - mysqldb
     networks:
