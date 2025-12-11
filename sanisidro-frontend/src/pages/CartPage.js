@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { pedidosAPI, usuariosAPI } from '../services/api';
+import { pedidosAPI, usuariosAPI, promocionesAPI } from '../services/api';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ExtrasModal from '../components/ExtrasModal';
@@ -32,43 +32,51 @@ const CartPage = () => {
   const subtotal = getCartTotal();
 
   const calculateDiscount = () => {
+    // 1. Si no hay promo aplicada, descuento es 0
     if (!appliedPromo) return 0;
 
-    const descuentoPorcentaje = parseFloat(appliedPromo.descuento) || 0;
-    console.log('Promoción aplicada:', appliedPromo);
-    console.log('Tipo:', appliedPromo.tipoPromocion);
-    console.log('Descuento %:', descuentoPorcentaje);
+    // 2. Normalizar el porcentaje de descuento (asegurar que sea número)
+    const descuentoPorcentaje = Number(appliedPromo.descuento) || 0;
 
-    // Si es promoción general, aplica a todo el carrito
-    if (appliedPromo.tipoPromocion === 'general') {
+    // Debug para ver qué está llegando
+    console.log('--- CALCULANDO DESCUENTO ---');
+    console.log('Promo:', appliedPromo.codigo);
+    console.log('Porcentaje:', descuentoPorcentaje);
+    console.log('Tipo:', appliedPromo.tipoPromocion);
+
+    // 3. CASO: Promoción General (Aplica a todo el subtotal)
+    if (appliedPromo.tipoPromocion === 'general' || appliedPromo.tipoPromocion === 'porcentaje') {
       const descuentoCalculado = (subtotal * descuentoPorcentaje) / 100;
-      console.log('Descuento general:', descuentoCalculado);
       return descuentoCalculado;
     }
 
-    // Si es promoción de producto específico, solo aplica a esos productos
-    if (appliedPromo.tipoPromocion === 'producto' && appliedPromo.productosAplicables) {
-      console.log('Productos aplicables:', appliedPromo.productosAplicables);
-      console.log('Items en carrito:', cartItems.map(i => ({ id: i.id, nombre: i.nombre, precio: i.precio, quantity: i.quantity, cantidad: i.cantidad })));
+    // 4. CASO: Monto Fijo (Descuento directo en dinero, ej: S/ 20.00)
+    // Agrego este caso por si tu promo es de tipo 'monto_fijo' como vi en tu SQL
+    if (appliedPromo.tipoPromocion === 'monto_fijo') {
+      return descuentoPorcentaje; // En este caso el "porcentaje" es el monto real
+    }
 
+    // 5. CASO: Producto Específico
+    if (appliedPromo.tipoPromocion === 'producto' && appliedPromo.productosAplicables) {
+      // Normalizar la lista de IDs permitidos a números
+      const idsValidos = Array.isArray(appliedPromo.productosAplicables)
+        ? appliedPromo.productosAplicables
+        : String(appliedPromo.productosAplicables).split(',').map(Number);
+
+      // Filtrar items del carrito que coincidan
       const applicableItems = cartItems.filter(item =>
-        appliedPromo.productosAplicables.includes(item.id)
+        idsValidos.includes(Number(item.id))
       );
 
-      console.log('Items que califican:', applicableItems);
-
+      // Calcular subtotal solo de esos items
       const applicableSubtotal = applicableItems.reduce((sum, item) => {
-        const precio = parseFloat(item.precio) || 0;
-        const cantidad = parseInt(item.quantity || item.cantidad) || 0;
-        console.log(`Item: ${item.nombre}, Precio: ${precio}, Cantidad: ${cantidad}, Subtotal: ${precio * cantidad}`);
+        const precio = Number(item.precio) || 0;
+        // Unificar propiedad de cantidad (quantity vs cantidad)
+        const cantidad = Number(item.quantity || item.cantidad) || 0;
         return sum + (precio * cantidad);
       }, 0);
 
-      console.log('Subtotal aplicable:', applicableSubtotal);
-
       const descuentoCalculado = (applicableSubtotal * descuentoPorcentaje) / 100;
-      console.log('Descuento calculado:', descuentoCalculado);
-
       return descuentoCalculado;
     }
 
@@ -79,6 +87,7 @@ const CartPage = () => {
   const total = (subtotal - discount) || subtotal;
 
   // Aplicar código promocional
+  // Aplicar código promocional
   const handleApplyPromo = async () => {
     setPromoError('');
 
@@ -88,15 +97,18 @@ const CartPage = () => {
     }
 
     try {
-      // Obtener promoción del backend por código
-      const response = await fetch(`https://backend-production-cbbe.up.railway.app/api/promociones/codigo/${promoCode.toUpperCase()}`);
+      // CORRECCIÓN: Usamos el nombre exacto que está en tu api.js
+      const response = await promocionesAPI.obtenerPorCodigo(promoCode.toUpperCase());
 
-      if (!response.ok) {
-        setPromoError('Código inválido');
+      // Axios devuelve la data dentro de .data
+      const promo = response.data;
+
+      // Validar si la respuesta vino vacía (algunos backends devuelven 200 OK pero body vacío si no encuentran)
+      if (!promo || !promo.codigo) {
+        setPromoError('Código no encontrado');
         return;
       }
 
-      const promo = await response.json();
       const today = new Date().toISOString().split('T')[0];
 
       // Formatear fechas si vienen como array
@@ -111,7 +123,6 @@ const CartPage = () => {
       const fechaInicio = formatearFecha(promo.fechaInicio);
       const fechaFin = formatearFecha(promo.fechaFin);
 
-      // Validar promoción
       if (!promo.activa) {
         setPromoError('Esta promoción no está activa');
         return;
@@ -127,24 +138,25 @@ const CartPage = () => {
         return;
       }
 
-      // Convertir productosAplicables de string a array si es necesario
+      // Convertir productosAplicables de string a array
       if (promo.productosAplicables && typeof promo.productosAplicables === 'string') {
         promo.productosAplicables = promo.productosAplicables.split(',').map(id => parseInt(id));
       }
 
-      // Validar requisitos mínimos
+      // Validar monto mínimo
       if (promo.montoMinimo && subtotal < promo.montoMinimo) {
         setPromoError(`Monto mínimo requerido: S/ ${promo.montoMinimo}`);
         return;
       }
 
+      // Validar cantidad mínima
       const totalItems = cartItems.reduce((sum, item) => sum + (item.quantity || item.cantidad || 0), 0);
       if (promo.cantidadMinima && totalItems < promo.cantidadMinima) {
         setPromoError(`Cantidad mínima requerida: ${promo.cantidadMinima} productos`);
         return;
       }
 
-      // Si es promoción de producto específico, verificar que haya productos aplicables en el carrito
+      // Validar productos específicos
       if (promo.tipoPromocion === 'producto' && promo.productosAplicables) {
         const hasApplicableProducts = cartItems.some(item =>
           promo.productosAplicables.includes(item.id)
@@ -164,7 +176,12 @@ const CartPage = () => {
       });
     } catch (error) {
       console.error('Error aplicando promoción:', error);
-      setPromoError('Código inválido');
+      // Manejo de error si el backend devuelve 404 o 500
+      if (error.response && error.response.status === 404) {
+        setPromoError('Código no encontrado');
+      } else {
+        setPromoError('Código inválido o error de conexión');
+      }
     }
   };
 
@@ -237,15 +254,12 @@ const CartPage = () => {
     const nombreCliente = paymentData.holderName || (user ? user.nombre : 'Cliente Invitado');
     const telefonoCliente = paymentData.phone || (user ? user.telefono : null);
 
-    // --- CORRECCIÓN DE FECHA AQUÍ ---
-    // Usamos Intl.DateTimeFormat para obtener la fecha exacta en Perú (YYYY-MM-DD)
     const fechaPeru = new Intl.DateTimeFormat('es-PE', {
       timeZone: 'America/Lima',
       year: 'numeric',
       month: '2-digit',
       day: '2-digit'
-    }).format(now).split('/').reverse().join('-'); // Convierte DD/MM/YYYY a YYYY-MM-DD
-    // -------------------------------
+    }).format(now).split('/').reverse().join('-');
 
     try {
       const pedidoData = {
@@ -297,6 +311,9 @@ const CartPage = () => {
       setIsPaymentModalOpen(false);
       setIsInvoiceModalOpen(true);
       clearCart();
+      setAppliedPromo(null);
+      setPromoCode('');
+      setPromoError('');
 
       setToast({
         message: '✅ Pedido realizado exitosamente',

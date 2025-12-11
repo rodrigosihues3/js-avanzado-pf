@@ -19,7 +19,7 @@ const MenuPage = () => {
   const cargarProductos = async () => {
     try {
       setLoading(true);
-      const response = await productosAPI.obtenerTodos();
+      const response = await productosAPI.obtenerPorCategoria("Fondos");
       // Filtrar solo platos disponibles
       const availablePlatos = response.data
         .filter(p => p.disponible)
